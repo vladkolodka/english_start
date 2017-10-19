@@ -40,7 +40,8 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ }
+      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.(png|svg|jpg|gif)$/, loader: 'file-loader' }
     ]
   },
   plugins: [
