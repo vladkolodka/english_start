@@ -1,19 +1,28 @@
-import { createStore } from "redux";
-import rootReducer from "./reducers";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { routerReducer, routerMiddleware, syncHistoryWithStore } from "react-router-redux";
+import createHistory from "history/createBrowserHistory";
+import { composeWithDevTools } from "redux-devtools-extension";
+import reducers from "./reducers";
 
 export default (initialState = {}) => {
-    const store = createStore(rootReducer, initialState,
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+    const combine = process.env.DEBUG ? composeWithDevTools : compose;
 
-    if (process.env.DEBUG) {
+    const history = createHistory();
 
-        if (module.hot) {
-            module.hot.accept('./reducers', () =>
-                store.replaceReducer(require("./reducers").default)
-            );
+    const store = createStore(combineReducers({
+        ...reducers,
+        router: routerReducer
+    }), initialState,
+        combine(
+            applyMiddleware(
+                routerMiddleware(history)
+            )
+        )
+    );
 
-        }
-    }
+    if (process.env.DEBUG && module.hot) module.hot.accept('./reducers', () =>
+        store.replaceReducer(require("./reducers").default)
+    );
 
-    return store;
+    return { store, history };
 }

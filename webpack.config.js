@@ -14,6 +14,10 @@ module.exports = {
       { test: /\.(png|svg|jpg|gif)$/, loader: 'file-loader' }
     ]
   },
+  devServer: {
+    contentBase: './dist',
+    historyApiFallback: true
+  },
   plugins: [
     new HtmlWebpackPluginConfig({
       template: path.join(__dirname, 'src', 'index.html'),

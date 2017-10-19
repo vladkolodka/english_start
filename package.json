@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --open"
   },
   "name": "english_start",
   "version": "1.0.0",
@@ -10,11 +10,15 @@
   "author": "vladkolodka",
   "license": "MIT",
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "history": "^4.7.2",
     "html-webpack-plugin": "^2.30.1",
     "path": "^0.12.7",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.8",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "reduxsauce": "^0.7.0",
