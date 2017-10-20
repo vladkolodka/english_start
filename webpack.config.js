@@ -11,7 +11,9 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.(png|svg|jpg|gif)$/, loader: 'file-loader' }
+      { test: /\.(png|svg|jpg|gif)$/, loader: 'file-loader' },
+      { test: /\.(woff|woff2|eot|ttf|otf)$/, use: ['file-loader'] },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] }
     ]
   },
   devServer: {
