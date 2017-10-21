@@ -1,3 +1,3 @@
-import tempReducer from "./tempReducer";
+import articlesReducer from "./articlesReducer";
 
-export default { tempReducer };
+export default { articles: articlesReducer };

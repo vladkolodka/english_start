@@ -15,6 +15,7 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import LeftArrow from 'material-ui-icons/KeyboardArrowLeft';
 import Drawer from 'material-ui/Drawer';
+import Paper from "material-ui/Paper";
 
 class RootContainer extends Component {
   constructor(props) {
@@ -64,10 +65,12 @@ class RootContainer extends Component {
           Drawer items
         </Drawer>
 
-        <Switch>
-          <Route path='/' component={HomePage} exact />
-          <Route path='/courses' component={CoursesPage} />
-        </Switch>
+        <Paper className={classes.content}>
+          <Switch>
+            <Route path='/' component={HomePage} exact />
+            <Route path='/courses' component={CoursesPage} />
+          </Switch>
+        </Paper>
       </div>
     );
   }
@@ -91,6 +94,9 @@ const styles = theme => ({
     float: 'right',
     width: 50,
     height: 50
+  },
+  content: {
+    margin: 10
   }
 });
 

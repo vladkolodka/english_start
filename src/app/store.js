@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
 import { routerReducer, routerMiddleware, syncHistoryWithStore } from "react-router-redux";
 import createHistory from "history/createBrowserHistory";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -16,7 +17,8 @@ export default (initialState = {}) => {
         combine(
             applyMiddleware(
                 routerMiddleware(history)
-            )
+            ),
+            applyMiddleware(thunk)
         )
     );
 
