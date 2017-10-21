@@ -3,6 +3,10 @@ import { Switch, Route, Link } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import CoursesPage from "../pages/CoursesPage";
 import ArticlePage from "../pages/ArticlePage";
+import ProfilePage from "../pages/ProfilePage";
+import EditProfilePage from "../pages/EditProfilePage";
+import DictionariesPage from "../pages/DictionariesPage";
+import MyDictionariesPage from "../pages/MyDictionariesPage";
 import { connect } from 'react-redux';
 import { withStyles } from "material-ui/styles";
 import Align from '../components/Ailgn';
@@ -91,6 +95,10 @@ class RootContainer extends Component {
             <Route path='/' component={HomePage} exact />
             <Route path='/article/:id' component={ArticlePage} />
             <Route path='/courses' component={CoursesPage} />
+            <Route path='/profile' component={ProfilePage} />
+            <Route path='/editprofile' component={EditProfilePage} />
+            <Route path='/dictionaries' component={DictionariesPage} />
+            <Route path='/userdictionaries' component={MyDictionariesPage} />
           </Switch>
         </Paper>
       </div>
