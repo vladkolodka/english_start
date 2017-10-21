@@ -5,6 +5,7 @@ import CoursesPage from "../pages/CoursesPage";
 import { connect } from 'react-redux';
 import { withStyles } from "material-ui/styles";
 import Align from '../components/Ailgn';
+import Navigator from "../components/Navigator";
 
 // material components
 import AppBar from 'material-ui/AppBar';
@@ -16,6 +17,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import LeftArrow from 'material-ui-icons/KeyboardArrowLeft';
 import Drawer from 'material-ui/Drawer';
 import Paper from "material-ui/Paper";
+import Divider from "material-ui/Divider";
 
 class RootContainer extends Component {
   constructor(props) {
@@ -26,10 +28,15 @@ class RootContainer extends Component {
     };
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.onTitleClick = this.onTitleClick.bind(this);
   }
 
   toggleDrawer() {
     this.setState({ drawerOpened: !this.state.drawerOpened });
+  }
+
+  onTitleClick() {
+    this.props.history.push('/');
   }
 
   render() {
@@ -42,7 +49,7 @@ class RootContainer extends Component {
               onClick={this.toggleDrawer}>
               <MenuIcon />
             </IconButton>
-            <Typography type="title" color="inherit" className={classes.flex}>
+            <Typography type="title" color="inherit" className={classes.flex} onClick={this.onTitleClick}>
               EnglishStart
               </Typography>
             <Button color="contrast">Sign In</Button>
@@ -66,6 +73,8 @@ class RootContainer extends Component {
         </Drawer>
 
         <Paper className={classes.content}>
+          <Navigator path={this.props.location.pathname} />
+          <Divider />
           <Switch>
             <Route path='/' component={HomePage} exact />
             <Route path='/courses' component={CoursesPage} />
@@ -82,6 +91,7 @@ const styles = theme => ({
   },
   flex: {
     flex: 1,
+    cursor: 'pointer'
   },
   menuButton: {
     marginLeft: -12,
