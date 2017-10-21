@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import CoursesPage from "../pages/CoursesPage";
+import ArticlePage from "../pages/ArticlePage";
 import { connect } from 'react-redux';
 import { withStyles } from "material-ui/styles";
 import Align from '../components/Ailgn';
 import Navigator from "../components/Navigator";
+import LoginModal from "../components/LoginModal";
 
 // material components
 import AppBar from 'material-ui/AppBar';
@@ -24,15 +26,21 @@ class RootContainer extends Component {
     super(props);
 
     this.state = {
-      drawerOpened: false
+      drawerOpened: false,
+      modalOpened: false
     };
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.toggleLoginModal = this.toggleLoginModal.bind(this);
     this.onTitleClick = this.onTitleClick.bind(this);
   }
 
   toggleDrawer() {
     this.setState({ drawerOpened: !this.state.drawerOpened });
+  }
+
+  toggleLoginModal() {
+    this.setState({ modalOpened: !this.state.modalOpened });
   }
 
   onTitleClick() {
@@ -43,6 +51,8 @@ class RootContainer extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
+        <LoginModal open={this.state.modalOpened} onClose={this.toggleLoginModal} />
+
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="contrast" aria-label="Menu"
@@ -52,7 +62,7 @@ class RootContainer extends Component {
             <Typography type="title" color="inherit" className={classes.flex} onClick={this.onTitleClick}>
               EnglishStart
               </Typography>
-            <Button color="contrast">Sign In</Button>
+            <Button color="contrast" onClick={this.toggleLoginModal}>Sign In</Button>
             <Button color="contrast">Sign Up</Button>
           </Toolbar>
         </AppBar>
@@ -69,6 +79,8 @@ class RootContainer extends Component {
               <LeftArrow />
             </IconButton>
           </Align>
+          <Link to='/courses'>Cources</Link>
+
           Drawer items
         </Drawer>
 
@@ -77,6 +89,7 @@ class RootContainer extends Component {
           <Divider />
           <Switch>
             <Route path='/' component={HomePage} exact />
+            <Route path='/article/:id' component={ArticlePage} />
             <Route path='/courses' component={CoursesPage} />
           </Switch>
         </Paper>

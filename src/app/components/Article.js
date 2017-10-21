@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
+import { withRouter } from 'react-router'
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
 class Article extends Component {
+    constructor(props) {
+        super(props);
+
+        this.onLearnClick = this.onLearnClick.bind(this);
+    }
+
+    onLearnClick() {
+        this.props.history.push(`/article/${this.props.article.id}`);
+    }
+
     render() {
         const { classes, article } = this.props;
         return (
@@ -23,7 +34,7 @@ class Article extends Component {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button dense color="primary">
+                    <Button dense color="primary" onClick={this.onLearnClick}>
                         Learn
                     </Button>
                 </CardActions>
@@ -42,4 +53,4 @@ const styles = {
     },
 };
 
-export default withStyles(styles)(Article);
+export default withRouter(withStyles(styles)(Article));

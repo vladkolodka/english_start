@@ -5,7 +5,8 @@ import RightArrow from 'material-ui-icons/KeyboardArrowRight';
 import { withStyles } from "material-ui/styles";
 
 const pages = {
-    courses: 'Courses'
+    courses: 'Courses',
+    article: 'Article'
 };
 
 const Item = ({ isActive = false, pageName, plain = true, classes }) => <div className={classes.item}>
@@ -13,7 +14,7 @@ const Item = ({ isActive = false, pageName, plain = true, classes }) => <div cla
     <Typography color={isActive ? 'accent' : 'default'} className={classes.itemText}>
         {pageName}
     </Typography>
-</div >;
+</div>;
 
 class Navigator extends Component {
     render() {
@@ -23,7 +24,8 @@ class Navigator extends Component {
             <div className={classes.container}>
                 <Item pageName='Home' plain={false} classes={classes} />
                 {items.length != 0 && items.map((v, i) =>
-                    <Item key={v} pageName={pages[v]} isActive={i + 1 == items.length} classes={classes} />)}
+                    pages.hasOwnProperty(v) ?
+                        <Item key={v} pageName={pages[v]} isActive={i + 1 == items.length} classes={classes} /> : null)}
             </div>
         );
     }

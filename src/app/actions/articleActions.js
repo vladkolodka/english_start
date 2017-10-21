@@ -3,7 +3,8 @@ import articlesData from "../data/articles";
 
 export const { Types, Creators } = createActions({
     resetArticles: null,
-    setArticles: ['articles']
+    setArticles: ['articles'],
+    setArticle: ['article']
 });
 
 export const loadLatestArticles = () => (dispatch) => {
@@ -12,4 +13,8 @@ export const loadLatestArticles = () => (dispatch) => {
     // toggle TODO loading indicator
 
     dispatch(Creators.setArticles(articlesData));
+};
+
+export const loadArticle = (id) => (dispatch) => {
+    dispatch(Creators.setArticle(articlesData.filter(v => v.id == id)[0]));
 };

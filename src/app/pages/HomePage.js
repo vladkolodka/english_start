@@ -16,7 +16,6 @@ class HomePage extends Component {
     render() {
         return (
             <div>
-                <Link to='/courses'>Cources</Link>
                 {this.props.articles.map(item => <Article key={item.id} article={item} />)}
             </div>
         );
