@@ -31,12 +31,14 @@ class RootContainer extends Component {
 
     this.state = {
       drawerOpened: false,
-      modalOpened: false
+      modalOpened: props.location.hash == '#login' ? true : false
     };
 
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.toggleLoginModal = this.toggleLoginModal.bind(this);
     this.onTitleClick = this.onTitleClick.bind(this);
+
+    console.log("CON", this.props);
   }
 
   toggleDrawer() {
@@ -49,6 +51,11 @@ class RootContainer extends Component {
 
   onTitleClick() {
     this.props.history.push('/');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.hash == '#login' && this.state.modalOpened == false)
+      this.setState({ modalOpened: true });
   }
 
   render() {
@@ -84,6 +91,7 @@ class RootContainer extends Component {
             </IconButton>
           </Align>
           <Link to='/courses'>Cources</Link>
+          <Link to='/#login'>Login</Link>
 
           Drawer items
         </Drawer>

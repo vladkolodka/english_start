@@ -3,10 +3,13 @@ const HtmlWebpackPluginConfig = require('html-webpack-plugin');
 const webpack = require("webpack");
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index'),
+  entry: {
+    app: path.join(__dirname, 'src', 'index'),
+    vendor: ['material-ui', 'material-ui-icons', 'typeface-roboto']
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'app.bundle.js',
+    filename: '[name].bundle.js',
     publicPath: '/'
   },
   devtool: 'inline-source-map',
@@ -18,18 +21,14 @@ module.exports = {
       { test: /\.css$/, use: ['style-loader', 'css-loader'] }
     ]
   },
-  devServer: {
-    contentBase: './dist',
-    historyApiFallback: true
-  },
   plugins: [
     new HtmlWebpackPluginConfig({
       template: path.join(__dirname, 'src', 'index.html'),
       filename: 'index.html',
       inject: 'body'
     }),
-    new webpack.EnvironmentPlugin({
-      DEBUG: true
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common'
     })
   ]
 };
