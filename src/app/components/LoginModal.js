@@ -42,7 +42,7 @@ class LoginModal extends Component {
                         onChange={this.handleChange('password')}
                         margin="normal"
                     />
-                    <Button raised>
+                    <Button raised onClick={() => this.props.onLogin(this.state.login, this.state.password)}>
                         Sign in
                   </Button>
                 </div>

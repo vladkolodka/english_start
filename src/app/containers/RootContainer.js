@@ -12,7 +12,8 @@ import { withStyles } from "material-ui/styles";
 import Align from '../components/Ailgn';
 import Navigator from "../components/Navigator";
 import LoginModal from "../components/LoginModal";
-
+import { tryLogin } from "../actions/authActions";
+const { logout } = require('../actions/authActions').Creators;
 // material components
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -37,8 +38,7 @@ class RootContainer extends Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.toggleLoginModal = this.toggleLoginModal.bind(this);
     this.onTitleClick = this.onTitleClick.bind(this);
-
-    console.log("CON", this.props);
+    this.onLogin = this.onLogin.bind(this);
   }
 
   toggleDrawer() {
@@ -58,11 +58,16 @@ class RootContainer extends Component {
       this.setState({ modalOpened: true });
   }
 
+  onLogin(login, password) {
+    this.setState({ modalOpened: false });
+    this.props.tryLogin(login, password);
+  }
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <LoginModal open={this.state.modalOpened} onClose={this.toggleLoginModal} />
+        <LoginModal open={this.state.modalOpened} onClose={this.toggleLoginModal} onLogin={this.onLogin} />
 
         <AppBar position="static">
           <Toolbar>
@@ -73,8 +78,14 @@ class RootContainer extends Component {
             <Typography type="title" color="inherit" className={classes.flex} onClick={this.onTitleClick}>
               EnglishStart
               </Typography>
-            <Button color="contrast" onClick={this.toggleLoginModal}>Sign In</Button>
-            <Button color="contrast">Sign Up</Button>
+
+            {this.props.isAuthorized ?
+              <Button color="contrast" onClick={this.props.logout}>Logout</Button>
+              : <div>
+                <Button color="contrast" onClick={this.toggleLoginModal}>Sign In</Button>
+                <Button color="contrast">Sign Up</Button>
+              </div>
+            }
           </Toolbar>
         </AppBar>
 
@@ -139,4 +150,9 @@ const styles = theme => ({
   }
 });
 
-export default connect(null, null)(withStyles(styles)(RootContainer));
+const mapStateToProps = ({ auth }) => ({
+  isAuthorized: auth.isAuthorized
+});
+
+export default connect(mapStateToProps, { tryLogin, logout })
+  (withStyles(styles)(RootContainer));
