@@ -7,6 +7,7 @@ module.exports = merge(common, {
         contentBase: './dist',
         historyApiFallback: true
     },
+    devtool: 'eval',
     plugins: [
         new webpack.EnvironmentPlugin({
             DEBUG: true

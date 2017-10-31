@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, Link } from "react-router-dom";
+import PrivateRoute from "../utils/PrivateRoute";
 import HomePage from "../pages/HomePage";
 import CoursesPage from "../pages/CoursesPage";
 import ArticlePage from "../pages/ArticlePage";
@@ -115,7 +116,7 @@ class RootContainer extends Component {
             <Route path='/article/:id' component={ArticlePage} />
             <Route path='/courses' component={CoursesPage} />
             <Route path='/profile' component={ProfilePage} />
-            <Route path='/editprofile' component={EditProfilePage} />
+            <PrivateRoute path='/editprofile' component={EditProfilePage} />
             <Route path='/dictionaries' component={DictionariesPage} />
             <Route path='/userdictionaries' component={MyDictionariesPage} />
           </Switch>
@@ -141,9 +142,8 @@ const styles = theme => ({
     width: '20%'
   },
   closeDrawerIcon: {
-    float: 'right',
-    width: 50,
-    height: 50
+    width: 48,
+    height: 48
   },
   content: {
     margin: 10
