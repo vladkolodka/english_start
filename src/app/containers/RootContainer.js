@@ -5,6 +5,8 @@ import HomePage from "../pages/HomePage";
 import CoursesPage from "../pages/CoursesPage";
 import ArticlePage from "../pages/ArticlePage";
 import ProfilePage from "../pages/ProfilePage";
+import VideoPage from "../pages/VideoPage";
+import VideosPage from "../pages/VideosPage";
 import EditProfilePage from "../pages/EditProfilePage";
 import DictionariesPage from "../pages/DictionariesPage";
 import MyDictionariesPage from "../pages/MyDictionariesPage";
@@ -114,6 +116,8 @@ class RootContainer extends Component {
           <Switch>
             <Route path='/' component={HomePage} exact />
             <Route path='/article/:id' component={ArticlePage} />
+            <Route path='/video/:id' component={VideoPage} />
+            <Route paper='/videos' component={VideosPage}/>
             <Route path='/courses' component={CoursesPage} />
             <Route path='/profile' component={ProfilePage} />
             <PrivateRoute path='/editprofile' component={EditProfilePage} />
