@@ -105,6 +105,7 @@ class RootContainer extends Component {
             </IconButton>
           </Align>
           <Link to='/courses'>Cources</Link>
+          <Link to='/videos'>Videos</Link>
           <Link to='/#login'>Login</Link>
 
           Drawer items
