@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
 class ProfilePage extends Component {
-    render() {
-        return (
-            <div>
+  render() {
+    return (
+      <div>
 
-            </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 export default ProfilePage;

@@ -7,11 +7,11 @@ import AlbumIcons from "material-ui-icons/Album";
 import { withStyles } from "material-ui/styles";
 
 class VideoPage extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.props.loadVideo(parseInt(props.match.params.id));
-    }
+    this.props.loadVideo(parseInt(props.match.params.id));
+  }
 
     render() {
         const { classes } = this.props;
@@ -36,8 +36,8 @@ class VideoPage extends Component {
     }
 }
 
-const mapStateToProps = ({ videos }) => ({
-    video: videos.item
+const mapStateToProps = ({videos}) => ({
+  video: videos.item
 })
 
 const styles = {
@@ -52,4 +52,4 @@ const styles = {
     }
 };
 
-export default withStyles(styles)(connect(mapStateToProps, { loadVideo })(VideoPage));
+export default withStyles(styles)(connect(mapStateToProps, {loadVideo})(VideoPage));

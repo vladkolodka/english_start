@@ -1,31 +1,45 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import H1 from "../styled/H1";
 import { connect } from "react-redux";
 import { loadLatestArticles } from "../actions/articleActions";
 
 import Article from "../components/Article";
 
+import { login, logout } from '../api';
+
 class HomePage extends Component {
-    constructor(props) {
-        super(props);
+  onLogin = () => {
+    login('vladkolodka@gmail.com', 'TestPass1!').then(response => {
+      console.log(response);
+    });
+  };
 
-        this.props.loadLatestArticles();
-    }
+  onLogout = () => {
+    logout().then(response => {
+      console.log(response);
+    });
+  };
 
-    render() {
-        return (
-            <div>
-                {this.props.articles.map(item => <Article key={item.id} article={item} />)}
-            </div>
-        );
-    }
+  constructor(props) {
+    super(props);
+
+    this.props.loadLatestArticles();
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.onLogin}>Login</button>
+        <button onClick={this.onLogout}>Logout</button>
+        {/*{this.props.articles.map(item => <Article key={item.id} article={item}/>)}*/}
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = ({ articles }) => ({
-    articles: articles.items
+const mapStateToProps = ({articles}) => ({
+  articles: articles.items
 });
 
 export default connect(mapStateToProps, {
-    loadLatestArticles
+  loadLatestArticles
 })(HomePage);
