@@ -7,60 +7,63 @@ import AlbumIcons from "material-ui-icons/Album";
 import { withStyles } from "material-ui/styles";
 
 class VideoPage extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.props.loadVideo(parseInt(props.match.params.id));
-    }
+    this.props.loadVideo(parseInt(props.match.params.id));
+  }
 
-    render() {
-        const { classes } = this.props;
-        if (!this.props.video)
-            return null;
-        return (
-            <div className={classes.container}>
-                <Typography type='display2' className={classes.title}>
-                    <AlbumIcons />
-                    {this.props.video.title}
-                </Typography>
+  render() {
+    const {classes} = this.props;
+    if (!this.props.video)
+      return null;
+    return (
+      <div className={classes.container}>
+        <Typography type='display2' className={classes.title}>
+          <AlbumIcons/>
+          {this.props.video.title}
+        </Typography>
 
-                <Divider />
+        <Divider/>
 
-                <object>
-                    <embed src={this.props.video.videoUrl} />
-                </object>
+        <object>
+          <embed src={this.props.video.videoUrl}/>
 
-                <Typography className={classes.title} type='body1'>
-                    {this.props.video.description}
-                </Typography>
-            </div>
-        );
-    }
+          <iframe width="420" height="315" src={this.props.video.videoUrl} frameBorder="0" allowFullScreen></iframe>
+
+        </object>
+
+        <Typography className={classes.title} type='body1'>
+          {this.props.video.description}
+        </Typography>
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = ({ videos }) => ({
-    video: videos.item
+const mapStateToProps = ({videos}) => ({
+  video: videos.item
 })
 
 const styles = {
-    container: {
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 5
-    },
-    title: {
-        paddingLeft: 10,
-        paddingBottom: 5
-    },
-    object: {
-        marginTop: 10,
-        marginBottom: 10,
-        display: 'block',
-        borderRadius: 20,
-        width: '40%',
-        margin: '0 auto',
-        borderLeft: '15px solid rgba(128, 128, 128, 0.31)'
-    }
+  container: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5
+  },
+  title: {
+    paddingLeft: 10,
+    paddingBottom: 5
+  },
+  object: {
+    marginTop: 10,
+    marginBottom: 10,
+    display: 'block',
+    borderRadius: 20,
+    width: '40%',
+    margin: '0 auto',
+    borderLeft: '15px solid rgba(128, 128, 128, 0.31)'
+  }
 };
 
-export default withStyles(styles)(connect(mapStateToProps, { loadVideo })(VideoPage));
+export default withStyles(styles)(connect(mapStateToProps, {loadVideo})(VideoPage));

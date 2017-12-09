@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, Link } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import PrivateRoute from "../utils/PrivateRoute";
 import HomePage from "../pages/HomePage";
 import CoursesPage from "../pages/CoursesPage";
@@ -15,8 +15,7 @@ import { withStyles } from "material-ui/styles";
 import Align from '../components/Ailgn';
 import Navigator from "../components/Navigator";
 import LoginModal from "../components/LoginModal";
-import { tryLogin } from "../actions/authActions";
-const { logout } = require('../actions/authActions').Creators;
+import { tryLogin, logout } from "../actions/authActions";
 // material components
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -45,11 +44,11 @@ class RootContainer extends Component {
   }
 
   toggleDrawer() {
-    this.setState({ drawerOpened: !this.state.drawerOpened });
+    this.setState({drawerOpened: !this.state.drawerOpened});
   }
 
   toggleLoginModal() {
-    this.setState({ modalOpened: !this.state.modalOpened });
+    this.setState({modalOpened: !this.state.modalOpened});
   }
 
   onTitleClick() {
@@ -58,29 +57,29 @@ class RootContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.location.hash == '#login' && this.state.modalOpened == false)
-      this.setState({ modalOpened: true });
+      this.setState({modalOpened: true});
   }
 
   onLogin(login, password) {
-    this.setState({ modalOpened: false });
+    this.setState({modalOpened: false});
     this.props.tryLogin(login, password);
   }
 
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
     return (
       <div className={classes.root}>
-        <LoginModal open={this.state.modalOpened} onClose={this.toggleLoginModal} onLogin={this.onLogin} />
+        <LoginModal open={this.state.modalOpened} onClose={this.toggleLoginModal} onLogin={this.onLogin}/>
 
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="contrast" aria-label="Menu"
-              onClick={this.toggleDrawer}>
-              <MenuIcon />
+                        onClick={this.toggleDrawer}>
+              <MenuIcon/>
             </IconButton>
             <Typography type="title" color="inherit" className={classes.flex} onClick={this.onTitleClick}>
               EnglishStart
-              </Typography>
+            </Typography>
 
             {this.props.isAuthorized ?
               <Button color="contrast" onClick={this.props.logout}>Logout</Button>
@@ -93,15 +92,15 @@ class RootContainer extends Component {
         </AppBar>
 
         <Drawer open={this.state.drawerOpened} onRequestClose={this.toggleDrawer}
-          classes={{
-            paper: classes.drawer
-          }}>
+                classes={{
+                  paper: classes.drawer
+                }}>
           <Align>
             <IconButton color="primary" aria-label="Menu" classes={{
               icon: classes.closeDrawerIcon
             }}
-              onClick={this.toggleDrawer}>
-              <LeftArrow />
+                        onClick={this.toggleDrawer}>
+              <LeftArrow/>
             </IconButton>
           </Align>
           <Link to='/courses'>Cources</Link>
@@ -111,18 +110,18 @@ class RootContainer extends Component {
         </Drawer>
 
         <Paper className={classes.content}>
-          <Navigator path={this.props.location.pathname} />
-          <Divider />
+          <Navigator path={this.props.location.pathname}/>
+          <Divider/>
           <Switch>
-            <Route path='/' component={HomePage} exact />
-            <Route path='/article/:id' component={ArticlePage} />
-            <Route path='/video/:id' component={VideoPage} />
+            <Route path='/' component={HomePage} exact/>
+            <Route path='/article/:id' component={ArticlePage}/>
+            <Route path='/video/:id' component={VideoPage}/>
             <Route paper='/videos' component={VideosPage}/>
-            <Route path='/courses' component={CoursesPage} />
-            <Route path='/profile' component={ProfilePage} />
-            <PrivateRoute path='/editprofile' component={EditProfilePage} />
-            <Route path='/dictionaries' component={DictionariesPage} />
-            <Route path='/userdictionaries' component={MyDictionariesPage} />
+            <Route path='/courses' component={CoursesPage}/>
+            <Route path='/profile' component={ProfilePage}/>
+            <PrivateRoute path='/editprofile' component={EditProfilePage}/>
+            <Route path='/dictionaries' component={DictionariesPage}/>
+            <Route path='/userdictionaries' component={MyDictionariesPage}/>
           </Switch>
         </Paper>
       </div>
@@ -154,9 +153,9 @@ const styles = theme => ({
   }
 });
 
-const mapStateToProps = ({ auth }) => ({
+const mapStateToProps = ({auth}) => ({
   isAuthorized: auth.isAuthorized
 });
 
-export default connect(mapStateToProps, { tryLogin, logout })
-  (withStyles(styles)(RootContainer));
+export default connect(mapStateToProps, {tryLogin, logout})
+(withStyles(styles)(RootContainer));
