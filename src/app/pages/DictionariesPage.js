@@ -1,13 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { own } from '../actions/dictionaryActions';
 
-class DictionariesPage extends Component {
+class DictionariesPage extends React.Component {
+  componentDidMount() {
+    this.props.own();
+  }
+
+
   render() {
-    return (
-      <div>
+    return <div>
+      <h3>Dictionaries</h3>
 
-      </div>
-    );
+      {this.props.dictionaries.map(d => <p key={d.id}>{d.name}</p>)}
+
+    </div>;
   }
 }
 
-export default DictionariesPage;
+const mapStateToProps = ({ dictionaries }) => ({
+  dictionaries: dictionaries.dictionaries
+});
+
+export default connect(mapStateToProps, { own })(DictionariesPage);

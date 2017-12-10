@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import createStore from "./store";
 import RootContainer from "./containers/RootContainer";
 
-const {store, history} = createStore();
+const { store, history } = createStore();
 
 export default class App extends Component {
   render() {

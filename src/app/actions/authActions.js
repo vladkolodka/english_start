@@ -12,6 +12,12 @@ export const tryLogin = (login, password) => (dispatch) => Account.login(login, 
   dispatch(Creators.authorize(response.data.data));
 });
 
+export const tryGetUser = () => (dispatch) => Account.whoAmI().then(response => {
+  if(response.status !== 200) return;
+
+  dispatch(Creators.authorize(response.data.data));
+});
+
 export const logout = () => (dispatch) => Account.logout().then(response => {
   if(response.status !== 200) return;
 

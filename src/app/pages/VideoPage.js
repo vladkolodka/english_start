@@ -38,7 +38,7 @@ class VideoPage extends Component {
 
 const mapStateToProps = ({videos}) => ({
   video: videos.item
-})
+});
 
 const styles = {
     container: {

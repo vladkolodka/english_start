@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "webpack-dev-server --open --config webpack.config.dev.js",
+    "start": "webpack-dev-server --open --config webpack.config.dev.js ",
     "build": "webpack --config webpack.config.prod.js"
   },
   "name": "english_start",

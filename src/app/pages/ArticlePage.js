@@ -6,21 +6,46 @@ import Divider from "material-ui/Divider";
 import AlbumIcons from "material-ui-icons/Album";
 import { withStyles } from "material-ui/styles";
 
-class ArticlePage extends Component {
-  constructor(props) {
-    super(props);
+import TextInformationBlock from '../components/TextInformationBlock';
+import ImageInformationBlock from '../components/ImageInformationBlock';
+import VideoInformationBlock from '../components/VideoInformationBlock';
 
-    this.props.loadArticle(parseInt(props.match.params.id));
+const blockTypes = {
+  Text: 0,
+  Image: 1,
+  Video: 2
+};
+
+class ArticlePage extends Component {
+  componentDidMount() {
+    this.props.loadArticle(this.props.match.params.id);
+  }
+
+  _getInfoComponent(type) {
+    switch (type) {
+      case blockTypes.Text:
+        return TextInformationBlock;
+      case blockTypes.Image:
+        return ImageInformationBlock;
+      case blockTypes.Video:
+        return VideoInformationBlock;
+    }
+  }
+
+  _renderInfoBlock(data) {
+    let Component = this._getInfoComponent(data.type);
+
+    return <Component key={data.id} data={data}/>
   }
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     if (!this.props.article) return null;
     return (
       <div className={classes.container}>
         <Typography type='display2' className={classes.title}>
           <AlbumIcons/>
-          {this.props.article.title}
+          {this.props.article.name}
         </Typography>
 
         <Divider/>
@@ -31,15 +56,14 @@ class ArticlePage extends Component {
           {this.props.article.description}
         </Typography>
 
-        <Typography type='body1'>
-          {this.props.article.text}
-        </Typography>
+        {this.props.article.informationBlocks.map(block => this._renderInfoBlock(block))}
+
       </div>
     );
   }
 }
 
-const mapStateToProps = ({articles}) => ({
+const mapStateToProps = ({ articles }) => ({
   article: articles.item
 });
 
@@ -64,4 +88,4 @@ const styles = {
   }
 };
 
-export default withStyles(styles)(connect(mapStateToProps, {loadArticle})(ArticlePage));
+export default withStyles(styles)(connect(mapStateToProps, { loadArticle })(ArticlePage));

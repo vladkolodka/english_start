@@ -5,12 +5,14 @@ const webpack = require("webpack");
 module.exports = merge(common, {
   devServer: {
     contentBase: './dist',
-    historyApiFallback: true
+    historyApiFallback: true,
+    hot: true
   },
-  devtool: 'eval',
+  // devtool: 'eval',
   plugins: [
     new webpack.EnvironmentPlugin({
       DEBUG: true
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ]
 });

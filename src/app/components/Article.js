@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
@@ -27,7 +27,7 @@ class Article extends Component {
         />
         <CardContent>
           <Typography type="headline" component="h2">
-            {article.title}
+            {article.name}
           </Typography>
           <Typography component="p">
             {article.description}

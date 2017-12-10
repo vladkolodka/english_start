@@ -4,6 +4,7 @@ import PrivateRoute from "../utils/PrivateRoute";
 import HomePage from "../pages/HomePage";
 import CoursesPage from "../pages/CoursesPage";
 import ArticlePage from "../pages/ArticlePage";
+import CoursePage from "../pages/CoursePage";
 import ProfilePage from "../pages/ProfilePage";
 import VideoPage from "../pages/VideoPage";
 import VideosPage from "../pages/VideosPage";
@@ -15,7 +16,7 @@ import { withStyles } from "material-ui/styles";
 import Align from '../components/Ailgn';
 import Navigator from "../components/Navigator";
 import LoginModal from "../components/LoginModal";
-import { tryLogin, logout } from "../actions/authActions";
+import { logout, tryGetUser, tryLogin } from "../actions/authActions";
 // material components
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -44,11 +45,11 @@ class RootContainer extends Component {
   }
 
   toggleDrawer() {
-    this.setState({drawerOpened: !this.state.drawerOpened});
+    this.setState({ drawerOpened: !this.state.drawerOpened });
   }
 
   toggleLoginModal() {
-    this.setState({modalOpened: !this.state.modalOpened});
+    this.setState({ modalOpened: !this.state.modalOpened });
   }
 
   onTitleClick() {
@@ -56,17 +57,21 @@ class RootContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.location.hash == '#login' && this.state.modalOpened == false)
-      this.setState({modalOpened: true});
+    if (nextProps.location.hash === '#login' && this.state.modalOpened == false)
+      this.setState({ modalOpened: true });
   }
 
   onLogin(login, password) {
-    this.setState({modalOpened: false});
+    this.setState({ modalOpened: false });
     this.props.tryLogin(login, password);
   }
 
+  componentDidMount() {
+    this.props.tryGetUser();
+  }
+
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     return (
       <div className={classes.root}>
         <LoginModal open={this.state.modalOpened} onClose={this.toggleLoginModal} onLogin={this.onLogin}/>
@@ -103,7 +108,8 @@ class RootContainer extends Component {
               <LeftArrow/>
             </IconButton>
           </Align>
-          <Link to='/courses'>Cources</Link>
+          <Link to='/courses'>Courses</Link>
+          <Link to='/dictionaries'>Dictionaries</Link>
           <Link to='/videos'>Videos</Link>
           <Link to='/#login'>Login</Link>
 
@@ -116,13 +122,14 @@ class RootContainer extends Component {
           <Switch>
             <Route path='/' component={HomePage} exact/>
             <Route path='/article/:id' component={ArticlePage}/>
+            <Route path='/course/:id' component={CoursePage}/>
             <Route path='/video/:id' component={VideoPage}/>
-            <Route paper='/videos' component={VideosPage}/>
             <Route path='/courses' component={CoursesPage}/>
-            <Route path='/profile' component={ProfilePage}/>
-            <PrivateRoute path='/editprofile' component={EditProfilePage}/>
             <Route path='/dictionaries' component={DictionariesPage}/>
+            <Route paper='/videos' component={VideosPage}/>
+            <Route path='/profile' component={ProfilePage}/>
             <Route path='/userdictionaries' component={MyDictionariesPage}/>
+            <PrivateRoute path='/editprofile' component={EditProfilePage}/>
           </Switch>
         </Paper>
       </div>
@@ -154,9 +161,9 @@ const styles = theme => ({
   }
 });
 
-const mapStateToProps = ({auth}) => ({
+const mapStateToProps = ({ auth }) => ({
   isAuthorized: auth.isAuthorized
 });
 
-export default connect(mapStateToProps, {tryLogin, logout})
+export default connect(mapStateToProps, { tryLogin, logout, tryGetUser })
 (withStyles(styles)(RootContainer));
