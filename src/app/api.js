@@ -45,6 +45,8 @@ export class Articles {
   });
 
   static get = (articleId) => api.get(`/${article}/Get`, { data: articleId });
+
+  static latest = (count) => api.get(`/${article}/Latest?count=${count}`);
 }
 
 export class Dictionaries {
@@ -60,6 +62,8 @@ export class Dictionaries {
     DictionaryId: dictionaryId,
     Words: words
   });
+
+  static create = dict => api.post(`/${dictionary}/Create`, dict);
 }
 
 export class Words {

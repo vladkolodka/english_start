@@ -10,7 +10,11 @@ import VideoPage from "../pages/VideoPage";
 import VideosPage from "../pages/VideosPage";
 import EditProfilePage from "../pages/EditProfilePage";
 import DictionariesPage from "../pages/DictionariesPage";
+import DictionaryPage from "../pages/DictionaryPage";
+import GamePage from "../pages/GamePage";
 import MyDictionariesPage from "../pages/MyDictionariesPage";
+import SearchDictionariesPage from "../pages/SearchDictionariesPage";
+import CreateDictionaryPage from "../pages/CreateDictionaryPage";
 import { connect } from 'react-redux';
 import { withStyles } from "material-ui/styles";
 import Align from '../components/Ailgn';
@@ -123,13 +127,17 @@ class RootContainer extends Component {
             <Route path='/' component={HomePage} exact/>
             <Route path='/article/:id' component={ArticlePage}/>
             <Route path='/course/:id' component={CoursePage}/>
+            <Route path='/create/dictionary/' component={CreateDictionaryPage}/>
             <Route path='/video/:id' component={VideoPage}/>
             <Route path='/courses' component={CoursesPage}/>
+            <Route path='/dictionaries/search/' component={SearchDictionariesPage}/>
             <Route path='/dictionaries' component={DictionariesPage}/>
-            <Route paper='/videos' component={VideosPage}/>
+            <Route path='/dictionary/:id' component={DictionaryPage}/>
             <Route path='/profile' component={ProfilePage}/>
             <Route path='/userdictionaries' component={MyDictionariesPage}/>
+            <Route path='/game/:id' component={GamePage}/>
             <PrivateRoute path='/editprofile' component={EditProfilePage}/>
+            <Route paper='/videos/' component={VideosPage}/>
           </Switch>
         </Paper>
       </div>

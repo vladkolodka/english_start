@@ -41,3 +41,9 @@ export const addWords = (dictionaryId, words) => dispatch => Dictionaries.addWor
 
   dispatch(Creators.addWordsToDictionary(dictionaryId, response.data.data));
 });
+
+export const create = (dictionary) => dispatch => Dictionaries.create(dictionary).then(response => {
+  if (response.status !== 200) return;
+
+  dispatch(Creators.appendDictionary(response.data.data))
+});
